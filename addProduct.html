@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Add Product Page</title>
+  </head>
+  <body>
+    <div id="header"></div>
+    <h1>Product Details</h1>
+    <form action="/addProduct" method="POST">
+      <div id="form-card">
+        <div>
+          <label for="name">Product Name</label><br />
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            placeholder="Product Name"
+          />
+        </div>
+
+        <br />
+        <div>
+          <label>Product Cost</label><br />
+          <input type="text" id="cost" name="cost" placeholder="Product Cost" />
+        </div>
+        <br />
+        <div>
+          <label for="quantity">Product Quantity</label><br />
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            placeholder="Product Quantity"
+          />
+        </div>
+        <br />
+        <div>
+          <label for="category-select">Category</label>
+          <select name="category" id="category-select">
+            <option value="plushies">Plushies</option>
+          </select>
+        </div>
+      </div>
+      <br />
+
+      <button type="submit">Add New Product</button>
+    </form>
+
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        font-family: "Nunito", sans-serif;
+      }
+
+      #header {
+        height: 50px;
+        background-color: lightblue;
+      }
+
+      label {
+        margin-top: 5px !important;
+      }
+      input {
+        padding: 5px;
+        border-radius: 5px;
+      }
+      #form-card {
+      }
+      form {
+        border: 2px solid blue;
+        padding: 20px;
+      
+        max-width:300px;
+        width:200px;
+      }
+    </style>
+    <script type="application/javascript" src="../main.js"></script>
+  </body>
+</html>

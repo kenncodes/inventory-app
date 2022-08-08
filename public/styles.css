@@ -1,0 +1,48 @@
+body {
+}
+* {
+    font-family: "Nunito", sans-serif;
+  }
+
+  #header {
+    display: flex;
+  }
+  button {
+    font-size: 15px !important;
+
+    display: inline;
+  }
+.expenses {
+  display: flex;
+  flex-wrap: wrap;
+}
+.expense {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: rgb(201, 216, 201);
+  cursor: pointer;
+  box-shadow: 5px 5px #888888;
+         
+}
+.expense:hover{
+    transform: skewY(2deg);
+}
+.expenses > div {
+  flex: 45%; /* or - flex: 0 50% - or - flex-basis: 50% - */
+  /*demo*/
+
+  margin:10px;
+}
+
+@media (max-width: 400px) {
+  .expenses > div {
+    flex: 100%; /* or - flex: 0 50% - or - flex-basis: 50% - */
+    /*demo*/
+   
+  }
+}
