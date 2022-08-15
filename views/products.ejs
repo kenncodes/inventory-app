@@ -89,10 +89,21 @@
         }
       </style>
     <div style="padding:10px; display:flex; justify-content: space-between;">
-          <h3>Products</h3>
+     
+      <h3>Products <span id="total"> </span></h3>
+      
+          <script>
+          var data = <%-JSON.stringify(products)%>
+          console.log(data);
+          var total = 0;
+          for(var i=0; i<data.length; i++){
+            total += data[i].price * data[i].quantity;
+          }
+          document.getElementById("total").innerHTML = "$" +total
+          </script>
           <button type="button" data-toggle="modal" data-target="#addProductModal">Add Product</button>
         </div>
-     <!-- Modal Start -->
+     <!-- Modal Add  Start -->
      <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -174,21 +185,35 @@
                 <th>Price</th>
                 <th>Stock</th>
                 <th>Total</th>
+               
               </tr>
           </thead>
           <tbody>
+          
           <% for(var i=0; i< products.length; i++) { %>
             <tr class="productRow" id=<%= products[i]._id %>>
-              <td> <%= products[i].name %></td>
+              <td> <%= products[i].name %> 
+               
+                <img
+                class="editImg"
+                src="https://cdn-icons-png.flaticon.com/512/84/84380.png"
+                width="20"
+              /> <img
+                class="deleteImg"
+                src="https://www.iconpacks.net/icons/1/free-trash-icon-347-thumb.png"
+                width="20"
+              /> </td>
               <td> $<%= products[i].price %></td>
               <td> <%= products[i].quantity %> </td>
               <td> $<%= products[i].quantity * products[i].price %> </td>
+              <td> </td>
             </tr>
 
           <% } %>
           </tbody>
         </table>
     </div>
+
     <script>
     
     </script>

@@ -39,6 +39,11 @@ body {
   margin:10px;
 }
 
+@media (min-width: 700px){
+    .expenses > div {
+        flex: 22%;
+    }
+}
 @media (max-width: 400px) {
   .expenses > div {
     flex: 100%; /* or - flex: 0 50% - or - flex-basis: 50% - */

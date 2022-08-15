@@ -24,60 +24,99 @@ app.use(express.static('public'))
 app.use(bodyParser.json())
 
 app.get("/", (request, response) => {
-   db.collection("products").find().sort({"name": 1}).toArray()
-    .then(results => {
-        response.render('index.ejs', { products: results})
-    })
+    db.collection("products").find().sort({ "name": 1 }).toArray()
+        .then(results => {
+            response.render('index.ejs', { products: results })
+        })
 })
 
-app.get("/products", (request, response) =>{
-    db.collection("products").find().sort({"name":1}).toArray()
+app.get("/products", (request, response) => {
+    db.collection("products").find().sort({ "name": 1 }).toArray()
         .then(results => {
-          //  console.log(results);
-            response.render('products.ejs', {products: results})
+            //  console.log(results);
+            response.render('products.ejs', { products: results })
         })
         .catch(error => {
             console.log(error);
         })
 })
 
-app.get("/product/:id", (req,res) => {
+app.get("/product/:id", (req, res) => {
     console.log(req.params.id);
-    db.collection("products").find({"_id": ObjectId(req.params.id)}).toArray()
-        .then( results => {
+    db.collection("products").find({ "_id": ObjectId(req.params.id) }).toArray()
+        .then(results => {
             console.log("hello " + res);
-        res.render('product.ejs', {products: results} )
+            res.render('product.ejs', { products: results })
         })
         .catch(error => {
             console.log("no product found");
-            
+
         })
+})
+
+app.get("/edit/:id", (req, res) => {
+    console.log(req.params.id)
+    db.collection("products").find({
+        "_id": ObjectId(req.params.id)
+    }).toArray()
+    .then(result => {
+        res.render('products/edit.ejs', { product: result })
+    })
+})
+
+
+app.put("/edit/:id", (req,res) => {
+    console.log(req.params.id)
+    db.collection("products").findOneAndUpdate(
+        { "_id": ObjectId(req.params.id)},
+        {
+            $set:{ name: req.body.name,
+                price: req.body.price,
+                quantity: req.body.quantity
+            }
+        }
+    )
+    .then(result => {
+        res.json("successfully edited")
+        
+    })
+    .catch(error => console.error(error))
 })
 
 app.post("/addProduct", (request, response) => {
     console.log("attempting to add product");
-    if(request.body.name.length > 5 ){  
-    db.collection("products").insertOne({
-        name: request.body.name,
-        price: Double(request.body.price),
-        quantity: Int32(request.body.quantity),
-        category: request.body.category
-    })
-    .then(result => {
-       console.log(result)
-       response.redirect("/products");
-    
-    })
-    .catch(error => {
-        console.log(error);
-       
-    })
-}else{
-    response.redirect("/products")
-}
+    if (request.body.name.length > 5) {
+        db.collection("products").insertOne({
+            name: request.body.name,
+            price: Double(request.body.price),
+            quantity: Int32(request.body.quantity),
+            category: request.body.category
+        })
+            .then(result => {
+                console.log(result)
+                response.redirect("/products");
+
+            })
+            .catch(error => {
+                console.log(error);
+
+            })
+    } else {
+        response.redirect("/products")
+    }
 })
 
-const PORT = 3000;
+app.delete("/product/:id", (req, res) => {
+    console.log("deleting " + req.params.id)
+    db.collection("products").deleteOne({
+        "_id": ObjectId(req.params.id)
+    })
+        .then(result => {
+            console.log(result)
+            res.json("deleted by id")
+        })
+        .catch(error => console.log(error))
+})
 
 app.listen(process.env.PORT || PORT, () => {
     console.log("listening on port 3000")
